@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+val exposedVersion: String by project
 plugins {
     java
     kotlin("jvm") version "1.4.30"
@@ -11,13 +12,14 @@ version = "1.0"
 repositories {
     mavenCentral()
     jcenter()
+    maven { setUrl("https://jitpack.io") }
 }
 
 dependencies {
     // Kotlin
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.2")
 
     // Database
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
@@ -34,7 +36,6 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.0.4")
     implementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
 }
-val exposedVersion: String by project
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
