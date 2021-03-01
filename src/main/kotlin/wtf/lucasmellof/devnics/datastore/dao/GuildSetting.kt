@@ -12,5 +12,6 @@ class GuildSetting(id: EntityID<Long>) : Entity<Long>(id) {
     companion object : EntityClass<Long, GuildSetting>(GuildSettings)
 
     val guildID = this.id.value
-    var commandPrefix by GuildSettings.prefix
+    var reactionChannelId by GuildSettings.reactionChannelId
+    var prefix by GuildSettings.prefix
 }
