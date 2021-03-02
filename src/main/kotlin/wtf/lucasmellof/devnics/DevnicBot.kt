@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
 import wtf.lucasmellof.devnics.core.config.instances.CoreConfig
 import wtf.lucasmellof.devnics.datastore.DatastoreManager
+import wtf.lucasmellof.devnics.listeners.GuildListeners
 import wtf.lucasmellof.devnics.utils.NewPrefixProvider
 import java.util.EnumSet
 
@@ -31,7 +32,7 @@ class DevnicBot {
         jda = DefaultShardManagerBuilder.create(EnumSet.allOf(GatewayIntent::class.java))
             .setToken(config.token)
             .setActivity(Activity.watching("Loading..."))
-            .addEventListeners(commandClient, eventWaiter)
+            .addEventListeners(commandClient, eventWaiter, GuildListeners())
             .build()
     }
     fun loadFlight() {
@@ -41,7 +42,7 @@ class DevnicBot {
             .configureDefaultHelpCommand { enabled = false }
             .setPrefixProvider(NewPrefixProvider(config))
             .build()
-        commandClient.commands.register("wtf.lucasmellof.notcarmello.commands")
+        commandClient.commands.register("wtf.lucasmellof.devnics.commands")
     }
     fun loadDatastore() {
         DatastoreManager(config).let {
