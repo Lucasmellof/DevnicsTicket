@@ -36,12 +36,12 @@ class GuildListeners : ListenerAdapter() {
                 )[1] == event.userId
             } ?: return
 
-
             GlobalScope.async {
                 // Sanity Check
-                val firstMessage = event.channel.getHistoryAround(event.messageIdLong, 1).submit().await().retrievedHistory[0]
-                if(firstMessage.author.id == event.jda.selfUser.id) {
-                    // TODO: check if i need to post logs to somewhere
+                val firstMessage =
+                    event.channel.getHistoryAround(event.messageIdLong, 1).submit().await().retrievedHistory[0]
+                if (firstMessage.author.id == event.jda.selfUser.id) {
+                    TicketUtils.closeTicket(event.channel, event.member, event.channel.topic!!.split("\\|")[1])
                 }
             }
         }

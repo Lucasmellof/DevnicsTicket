@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.Emote
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel
 import wtf.lucasmellof.devnics.datastore.DatastoreUtils
+import java.awt.Color
 
 /* 
  * @author Lucasmellof, Lucas de Mello Freitas created on 01/03/2021
@@ -68,5 +69,16 @@ object TicketUtils {
         }
         action.sendMessage(role.asMention).submit().await()
         return action
+    }
+
+    suspend fun closeTicket(channel: TextChannel, logChannel: TextChannel, member: Member, s: String) {
+        val embedBuilder = EmbedBuilder().apply {
+            setTitle("Ticket closed")
+            setDescription("Opened by: ${channel.jda.getUserById(s)?.name}")
+            setDescription("Closed by: ${member.effectiveName}")
+            setColor(Color.ORANGE)
+        }
+        logChannel.sendMessage(embedBuilder.build())
+        channel.delete().submit().await()
     }
 }
