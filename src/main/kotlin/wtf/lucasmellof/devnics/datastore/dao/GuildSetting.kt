@@ -12,6 +12,10 @@ class GuildSetting(id: EntityID<Long>) : Entity<Long>(id) {
     companion object : EntityClass<Long, GuildSetting>(GuildSettings)
 
     val guildID = this.id.value
-    var reactionChannelId by GuildSettings.reactionChannelId
+    var reactionMessageId by GuildSettings.reactionMessageId
+    var reactionEmoteId by GuildSettings.reactionEmoteId
+    var closeReactionEmoteId by GuildSettings.closeReactionEmoteId
+    var ticketCategory by GuildSettings.ticketCategory
+    var supportRole by GuildSettings.supportRole
     var prefix by GuildSettings.prefix
 }

@@ -7,5 +7,9 @@ import wtf.lucasmellof.devnics.DevnicsLauncher.config
  */
 object GuildSettings : SnowflakeTable() {
     val prefix = text("prefix").default(config.prefix)
-    val reactionChannelId = long("reactionChannelId").default(0)
+    val reactionMessageId = long("reactionMessageId").default(0)
+    val reactionEmoteId = long("reactionEmoteId").default(0)
+    val closeReactionEmoteId = long("reactionEmoteId").default(0)
+    val ticketCategory = long("ticketCategory").default(0)
+    val supportRole = long("supportRole").default(0)
 }
