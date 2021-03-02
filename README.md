@@ -1,5 +1,6 @@
-# DevnicsTicket
+DevnicsTicket
 ========
+
 Very simple ticket bot.
 
 ## Main features
