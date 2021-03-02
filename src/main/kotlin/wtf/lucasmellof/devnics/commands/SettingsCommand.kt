@@ -23,8 +23,8 @@ class SettingsCommand : ModCog {
             setColor(Color.ORANGE)
             setTitle("Guild configuration")
             setDescription("You can change any configuration using: ${ctx.trigger}config [key] [value]")
-            addField("\uD83D\uDD11 Prefix **:**", "``${data.prefix}``", true)
-            addField("\uD83D\uDEC3 Moderation Role **:**", "``${data.supportRole}``", true)
+            addField("\uD83D\uDD11 Prefix **:**", "(Key: prefix) → ``${data.prefix}``", true)
+            addField("\uD83D\uDEC3 Moderation Role **:**", "(Key: moderation) → ``${data.supportRole}``", true)
         }
     }
 

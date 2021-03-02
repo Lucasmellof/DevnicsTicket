@@ -1,6 +1,5 @@
 package wtf.lucasmellof.devnics
 
-import com.jagrosh.jdautilities.waiter.EventWaiter
 import me.devoxin.flight.api.CommandClient
 import me.devoxin.flight.api.CommandClientBuilder
 import net.dv8tion.jda.api.entities.Activity
@@ -20,7 +19,6 @@ class DevnicBot {
     lateinit var jda: ShardManager
     lateinit var commandClient: CommandClient
     lateinit var config: CoreConfig
-    var eventWaiter = EventWaiter()
     @ExperimentalStdlibApi
     fun start(config: CoreConfig) {
         this.config = config
@@ -32,7 +30,7 @@ class DevnicBot {
         jda = DefaultShardManagerBuilder.create(EnumSet.allOf(GatewayIntent::class.java))
             .setToken(config.token)
             .setActivity(Activity.watching("Loading..."))
-            .addEventListeners(commandClient, eventWaiter, GuildListeners())
+            .addEventListeners(commandClient, GuildListeners())
             .build()
     }
     @ExperimentalStdlibApi

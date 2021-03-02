@@ -60,6 +60,7 @@ class PanelCommand : ModCog {
             {
                 setTitle("Open ticket")
                 setDescription("Click the ✅ to create a ticket")
+                setColor(Color.ORANGE)
             },
             {
                 it.addReaction(TicketUtils.open).queue()

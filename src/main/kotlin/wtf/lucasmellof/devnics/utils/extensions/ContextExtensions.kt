@@ -1,12 +1,10 @@
 package wtf.lucasmellof.devnics.utils.extensions
 
-import com.jagrosh.jdautilities.waiter.EventWaiter
 import me.devoxin.flight.api.Context
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.User
-import wtf.lucasmellof.devnics.DevnicsLauncher.bot
 import wtf.lucasmellof.devnics.datastore.DatastoreUtils
 import wtf.lucasmellof.devnics.datastore.dao.GuildSetting
 import java.util.function.Consumer
@@ -20,8 +18,6 @@ val Context.member: Member?
     get() = member
 val Context.user: User
     get() = member?.user!!
-val Context.eventWaiter: EventWaiter
-    get() = bot.eventWaiter
 
 suspend fun Context.getGuildDataAsync(): GuildSetting = DatastoreUtils.getOrCreateGuildProfileAsync(guild!!)
 fun Context.getGuildData(): GuildSetting = DatastoreUtils.getOrCreateGuildProfile(guild!!)
