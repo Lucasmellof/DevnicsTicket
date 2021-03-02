@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.findAnnotation
+import kotlin.system.exitProcess
 
 /* 
  * @author Lucasmellof, Lucas de Mello Freitas created on 27/02/2021
@@ -22,6 +23,8 @@ inline fun <reified T : Any> loadConfig(clazz: KClass<*>): T? {
         val instance = clazz.createInstance() as T
         val json = gson.toJson(instance)
         config.writeText(json, StandardCharsets.UTF_8)
+        println("Creating new config...")
+        exitProcess(10)
         return instance
     }
     return gson.fromJson(config.readText(StandardCharsets.UTF_8), T::class.java) as T
