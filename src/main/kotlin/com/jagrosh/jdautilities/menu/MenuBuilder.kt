@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
 import net.dv8tion.jda.api.entities.User
-import wtf.lucasmellof.notcarmello.utils.Colors
 import java.awt.Color
 import java.util.concurrent.TimeUnit
 
@@ -59,7 +58,6 @@ abstract class MenuBuilder<T : MenuBuilder<T>>(val waiter: EventWaiter) {
     }
 
     fun setColor(color: Color?): T = setColor(color?.rgb)
-    fun setColor(color: Colors): T = setColor(color.color.rgb)
     fun setUser(user: User): T {
         this.user = user
         return this as T

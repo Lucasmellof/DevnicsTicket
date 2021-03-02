@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import net.dv8tion.jda.api.entities.Guild
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import wtf.lucasmellof.devnics.DevnicsLauncher.bot
 import wtf.lucasmellof.devnics.datastore.dao.GuildSetting
 
 /* 
@@ -11,7 +12,9 @@ import wtf.lucasmellof.devnics.datastore.dao.GuildSetting
  */
 object DatastoreUtils {
     private fun _getOrCreateGuildProfile(guildId: Long): GuildSetting {
-        return GuildSetting.findById(guildId) ?: GuildSetting.new(guildId) { }
+        return GuildSetting.findById(guildId) ?: GuildSetting.new(guildId) {
+            moderationRole = bot.jda.getGuildById(guildId)!!.publicRole.idLong
+        }
     }
     fun getOrCreateGuildProfile(guildId: Long): GuildSetting {
         return transaction {

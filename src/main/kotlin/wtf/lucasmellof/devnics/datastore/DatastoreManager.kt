@@ -16,7 +16,7 @@ class DatastoreManager(private val config: CoreConfig) {
         val datasource = HikariDataSource(HikariConfig().apply {
             jdbcUrl = "jdbc:mysql://${config.databaseHost}:${config.databasePort}/${config.datastoreDatabase}"
             username = config.datastoreUser
-            password = config.datastoreDatabase
+            password = config.datastorePassword
         })
         Database.connect(datasource)
     }

@@ -3,7 +3,6 @@ package wtf.lucasmellof.devnics.utils
 import kotlinx.coroutines.future.await
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.Permission
-import net.dv8tion.jda.api.entities.Emote
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel
 import wtf.lucasmellof.devnics.datastore.DatastoreUtils
@@ -13,6 +12,9 @@ import java.awt.Color
  * @author Lucasmellof, Lucas de Mello Freitas created on 01/03/2021
  */
 object TicketUtils {
+    const val open = "✅"
+    const val close = "❎"
+
     suspend fun createTicket(member: Member): TextChannel? {
         val guild = member.guild
         val data = DatastoreUtils.getOrCreateGuildProfile(guild)
@@ -56,16 +58,11 @@ object TicketUtils {
 
         val embed = EmbedBuilder().apply {
             setTitle("Hello ${member.asMention}!")
+            setColor(Color.ORANGE)
             setDescription("Enter the reason for the ticket!\n")
         }
         action.sendMessage(embed.build()).queue {
-            val emote: Emote? = guild.getEmoteById(data.closeReactionEmoteId)
-            if (emote == null) {
-                it.channel.sendMessage("${role.asMention} Close reaction emoji is not defined, use `${data.prefix}close` to close this ticket!")
-                    .queue()
-                return@queue
-            }
-            it.addReaction(emote).queue()
+            it.addReaction(close).queue()
         }
         action.sendMessage(role.asMention).submit().await()
         return action
@@ -74,11 +71,11 @@ object TicketUtils {
     suspend fun closeTicket(channel: TextChannel, logChannel: TextChannel, member: Member, s: String) {
         val embedBuilder = EmbedBuilder().apply {
             setTitle("Ticket closed")
-            setDescription("Opened by: ${channel.jda.getUserById(s)?.name}")
-            setDescription("Closed by: ${member.effectiveName}")
+            val opener = channel.jda.getUserById(s)!!
+            setDescription("Opened by: ${opener.name}(${opener.id})\nClosed by: ${member.effectiveName}(${member.id})")
             setColor(Color.ORANGE)
         }
-        logChannel.sendMessage(embedBuilder.build())
+        logChannel.sendMessage(embedBuilder.build()).queue()
         channel.delete().submit().await()
     }
 }

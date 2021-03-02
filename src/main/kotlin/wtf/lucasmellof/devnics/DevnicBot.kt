@@ -16,12 +16,12 @@ import java.util.EnumSet
 /* 
  * @author Lucasmellof, Lucas de Mello Freitas created on 27/02/2021
  */
-@ExperimentalStdlibApi
 class DevnicBot {
     lateinit var jda: ShardManager
     lateinit var commandClient: CommandClient
     lateinit var config: CoreConfig
     var eventWaiter = EventWaiter()
+    @ExperimentalStdlibApi
     fun start(config: CoreConfig) {
         this.config = config
         loadDatastore()
@@ -35,6 +35,7 @@ class DevnicBot {
             .addEventListeners(commandClient, eventWaiter, GuildListeners())
             .build()
     }
+    @ExperimentalStdlibApi
     fun loadFlight() {
         commandClient = CommandClientBuilder()
             .registerDefaultParsers()

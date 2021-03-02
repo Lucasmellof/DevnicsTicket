@@ -16,7 +16,7 @@
 
 package com.jagrosh.jdautilities
 
-import com.jagrosh.jdautilities.menu.*
+import com.jagrosh.jdautilities.menu.* // ktlint-disable no-wildcard-imports
 import com.jagrosh.jdautilities.waiter.EventWaiter
 
 inline fun EventWaiter.selector(action: SelectorBuilder.() -> Unit): Selector {

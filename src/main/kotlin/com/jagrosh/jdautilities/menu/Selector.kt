@@ -51,7 +51,7 @@ class Selector(
 
     fun display(channel: TextChannel) {
         if (!channel.guild.selfMember.hasPermission(channel, Permission.MESSAGE_ADD_REACTION)) {
-            channel.sendMessage("Error: O bot precisa de permissão de adcionar reação para o menu de seleção.").queue()
+            channel.sendMessage("Error: The bot requires permission to add reactions for selection menus.").queue()
             return finally(null)
         }
 
@@ -62,18 +62,18 @@ class Selector(
                 val embedDescription = buildString {
                     append(description).append('\n').append('\n')
                     options.forEachIndexed { index, (name) ->
-                        if(type == Type.REACTIONS) append("${'\u0030' + (index + 1)}\u20E3")
+                        if (type == Type.REACTIONS) append("${'\u0030' + (index + 1)}\u20E3")
                         append(" $name\n")
                     }
                 }
                 setDescription(embedDescription)
                 val optionType = when (type) {
-                    Type.REACTIONS -> "Escolha a reação correspondente a opção desejada."
-                    Type.MESSAGE -> "Digite um número de acordo com a opção desejada. ie: `1` or `cancel`"
+                    Type.REACTIONS -> "Pick a reaction corresponding to the options."
+                    Type.MESSAGE -> "Type a number corresponding to the options. ie: `1` or `cancel`"
                 }
-                addField("Selecione a opção", optionType, false)
+                addField("Select an Option", optionType, false)
                 super.fields.forEach { addField(it) }
-                setFooter("Esse menu vai ter o tempo esgotado em $timeout ${unit.toString().toLowerCase()}.", null)
+                setFooter("This selection will time out in $timeout ${unit.toString().toLowerCase()}.", null)
             }.build()
         ).queue(
             {
@@ -153,7 +153,7 @@ class Selector(
                     finally(message)
                 }.predicate {
                     when {
-                       // it.messageIdLong != message?.idLong -> false
+                        // it.messageIdLong != message?.idLong -> false
                         it.author.isBot -> false
                         user != null && it.author != user -> {
                             false

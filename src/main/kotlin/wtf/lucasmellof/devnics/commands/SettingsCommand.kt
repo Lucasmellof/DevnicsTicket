@@ -4,6 +4,7 @@ import me.devoxin.flight.api.Context
 import me.devoxin.flight.api.annotations.Command
 import me.devoxin.flight.api.annotations.Greedy
 import me.devoxin.flight.api.annotations.SubCommand
+import net.dv8tion.jda.api.entities.Role
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wtf.lucasmellof.devnics.core.commands.cogs.ModCog
 import wtf.lucasmellof.devnics.utils.extensions.deleteIn10
@@ -18,12 +19,12 @@ class SettingsCommand : ModCog {
     @Command
     fun settings(ctx: Context) {
         val data = ctx.getGuildData()
-        val current = data.prefix
         return ctx.send {
-            setColor(Color.decode("#8A2BE2"))
+            setColor(Color.ORANGE)
             setTitle("Guild configuration")
             setDescription("You can change any configuration using: ${ctx.trigger}config [key] [value]")
-            addField("\uD83D\uDD11 Prefix **:**", "``$current``", true)
+            addField("\uD83D\uDD11 Prefix **:**", "``${data.prefix}``", true)
+            addField("\uD83D\uDEC3 Moderation Role **:**", "``${data.supportRole}``", true)
         }
     }
 
@@ -44,5 +45,13 @@ class SettingsCommand : ModCog {
             data.prefix = value
         }
         ctx.send("✅ You have succesfully changed the guild prefix to ``$value``.") { it.deleteIn10() }
+    }
+    @SubCommand
+    suspend fun moderation(ctx: Context, role: Role) {
+        val data = ctx.getGuildData()
+        newSuspendedTransaction {
+            data.moderationRole = role.idLong
+        }
+        ctx.send("✅ You have succesfully changed the guild prefix to ``${role.id}``.") { it.deleteIn10() }
     }
 }

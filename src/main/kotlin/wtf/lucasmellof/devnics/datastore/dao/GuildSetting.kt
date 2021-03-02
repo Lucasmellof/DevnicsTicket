@@ -13,9 +13,9 @@ class GuildSetting(id: EntityID<Long>) : Entity<Long>(id) {
 
     val guildID = this.id.value
     var reactionMessageId by GuildSettings.reactionMessageId
-    var reactionEmoteId by GuildSettings.reactionEmoteId
-    var closeReactionEmoteId by GuildSettings.closeReactionEmoteId
     var ticketCategory by GuildSettings.ticketCategory
+    var logChannel by GuildSettings.logChannel
     var supportRole by GuildSettings.supportRole
     var prefix by GuildSettings.prefix
+    var moderationRole by GuildSettings.moderationRole
 }
