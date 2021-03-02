@@ -25,7 +25,6 @@ inline fun <reified T : Any> loadConfig(clazz: KClass<*>): T? {
         config.writeText(json, StandardCharsets.UTF_8)
         println("Creating new config...")
         exitProcess(10)
-        return instance
     }
     return gson.fromJson(config.readText(StandardCharsets.UTF_8), T::class.java) as T
 }

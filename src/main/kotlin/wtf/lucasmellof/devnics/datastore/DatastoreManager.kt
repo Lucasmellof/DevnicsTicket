@@ -13,11 +13,13 @@ import wtf.lucasmellof.devnics.datastore.tables.GuildSettings
  */
 class DatastoreManager(private val config: CoreConfig) {
     fun connect() {
-        val datasource = HikariDataSource(HikariConfig().apply {
-            jdbcUrl = "jdbc:mysql://${config.databaseHost}:${config.databasePort}/${config.datastoreDatabase}"
-            username = config.datastoreUser
-            password = config.datastorePassword
-        })
+        val datasource = HikariDataSource(
+            HikariConfig().apply {
+                jdbcUrl = "jdbc:mysql://${config.databaseHost}:${config.databasePort}/${config.datastoreDatabase}"
+                username = config.datastoreUser
+                password = config.datastorePassword
+            }
+        )
         Database.connect(datasource)
     }
 
@@ -26,5 +28,4 @@ class DatastoreManager(private val config: CoreConfig) {
             GuildSettings
         )
     }
-
 }
