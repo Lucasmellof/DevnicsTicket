@@ -13,7 +13,7 @@ interface OwnerCog : Cog {
     override fun localCheck(ctx: Context, command: CommandFunction): Boolean {
         val user = ctx.user
         if (!ctx.commandClient.ownerIds.contains(user.idLong)) {
-            ctx.send("\uD83D\uDE1F Eita, você não é meu dono!")
+            ctx.send("\uD83D\uDE1F Whoops, you aren't my owner!")
             return false
         }
         return true
